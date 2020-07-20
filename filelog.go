@@ -5,8 +5,8 @@ package log4go
 import (
 	"fmt"
 	"os"
-	"time"
 	"strings"
+	"time"
 )
 
 // This log writer sends output to a file
@@ -41,7 +41,7 @@ type FileLogWriter struct {
 	maxbackup int
 
 	// Sanitize newlines to prevent log injection
-	sanitize	bool
+	sanitize bool
 }
 
 // This is the FileLogWriter's output method
@@ -63,7 +63,7 @@ func (w *FileLogWriter) Close() {
 //
 // The standard log-line format is:
 //   [%D %T] [%L] (%S) %M
-func NewFileLogWriter(fname string, rotate bool, daily bool) *FileLogWriter {
+func NewFileLogWriter(fname string, rotate bool, daily bool, maxbackup int) *FileLogWriter {
 	w := &FileLogWriter{
 		rec:       make(chan *LogRecord, LogBufferLength),
 		rot:       make(chan bool),
@@ -71,7 +71,7 @@ func NewFileLogWriter(fname string, rotate bool, daily bool) *FileLogWriter {
 		format:    "[%D %T] [%L] (%S) %M",
 		daily:     daily,
 		rotate:    rotate,
-		maxbackup: 999,
+		maxbackup: maxbackup,
 		sanitize:  false, // set to false so as not to break compatibility
 	}
 	// open the file for the first time
@@ -284,7 +284,7 @@ func (w *FileLogWriter) SetSanitize(sanitize bool) *FileLogWriter {
 // NewXMLLogWriter is a utility method for creating a FileLogWriter set up to
 // output XML record log messages instead of line-based ones.
 func NewXMLLogWriter(fname string, rotate bool, daily bool) *FileLogWriter {
-	return NewFileLogWriter(fname, rotate, daily).SetFormat(
+	return NewFileLogWriter(fname, rotate, daily, 999).SetFormat(
 		`	<record level="%L">
 		<timestamp>%D %T</timestamp>
 		<source>%S</source>

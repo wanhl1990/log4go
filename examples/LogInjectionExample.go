@@ -29,7 +29,7 @@ func main() {
 	log := make(l4g.Logger)
 
 	/* Can also specify manually via the following: (these are the defaults) */
-	flw := l4g.NewFileLogWriter(filename, false, false)
+	flw := l4g.NewFileLogWriter(filename, false, false, 999)
 	flw.SetFormat("[%D %T] [%L] (%S) %M")
 	flw.SetRotate(false)
 	flw.SetRotateSize(0)
@@ -39,7 +39,7 @@ func main() {
 	log.AddFilter("file", l4g.FINE, flw)
 
 	// Log some experimental messages
-	for _,message := range(user_input) {
+	for _, message := range user_input {
 		log.Info(message)
 	}
 
@@ -51,7 +51,7 @@ func main() {
 	// Close the log
 	log.Close()
 
-	// Print what was logged to the file 
+	// Print what was logged to the file
 	fd, err := os.Open(filename)
 	if err != nil {
 		fmt.Printf("Error reopening file: %s", filename)

@@ -190,7 +190,7 @@ func jsonToFileLogWriter(filename string, ff *FileConfig) (*FileLogWriter, bool)
 		return nil, true
 	}
 
-	flw := NewFileLogWriter(file, rotate, daily)
+	flw := NewFileLogWriter(file, rotate, daily, 999)
 	flw.SetFormat(format)
 	flw.SetRotateLines(maxlines)
 	flw.SetRotateSize(maxsize)

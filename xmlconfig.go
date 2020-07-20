@@ -217,7 +217,7 @@ func xmlToFileLogWriter(filename string, props []xmlProperty, enabled bool) (*Fi
 		return nil, true
 	}
 
-	flw := NewFileLogWriter(file, rotate, daily)
+	flw := NewFileLogWriter(file, rotate, daily, 999)
 	flw.SetFormat(format)
 	flw.SetRotateLines(maxlines)
 	flw.SetRotateSize(maxsize)
