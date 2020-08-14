@@ -119,3 +119,9 @@ The output like:
 ## Thanks
 
 Thanks alecthomas for providing the [original resource](https://github.com/alecthomas/log4go).
+
+## 备注
+修改内容：
+1. 启动时, maxbackup即生效；
+2. 去掉默认开启console，只有进行配置后，才打开console输出；
+3. logtime的输出精确到纳秒，方便通过日的输出时间进行问题定位；
